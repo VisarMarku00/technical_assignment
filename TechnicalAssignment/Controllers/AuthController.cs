@@ -17,10 +17,11 @@ public class AuthController : ControllerBase
     {
         var tokenDto = authService.Login(user);
 
-        if (tokenDto != null)
+        if (tokenDto == null)
         {
-            return Ok(tokenDto.Token);
+            return Unauthorized(new { message = "Invalid username or password" });
         }
-        return Unauthorized();
+
+        return Ok(tokenDto.Token);
     }
 }

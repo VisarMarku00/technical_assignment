@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var jwt = builder.Configuration.GetSection("Jwt");
+var jwt = builder.Configuration.GetSection("Jwt") ?? throw new InvalidOperationException("JWT config missing");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -69,12 +69,20 @@ var app = builder.Build();
 using var scope = app.Services.CreateScope();
 var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-var productsJson = File.ReadAllText("Data/products.json");
-var products = JsonSerializer.Deserialize<List<Product>>(productsJson);
+var productsJson = File.ReadAllText("Data/products.json")
+    ?? throw new InvalidOperationException("Products JSON not found.");
+
+var products = JsonSerializer.Deserialize<List<Product>>(productsJson)
+    ?? throw new InvalidOperationException("Failed to deserialize products JSON.");
+
 db.Products.AddRange(products);
 
-var usersJson = File.ReadAllText("Data/users.json");
-var users = JsonSerializer.Deserialize<List<User>>(usersJson);
+var usersJson = File.ReadAllText("Data/users.json")
+    ?? throw new InvalidOperationException("Users JSON not found.");
+
+var users = JsonSerializer.Deserialize<List<User>>(usersJson)
+    ?? throw new InvalidOperationException("Failed to deserialize products JSON.");
+
 db.Users.AddRange(users);
 
 db.SaveChanges();
@@ -84,6 +92,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

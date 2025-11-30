@@ -23,6 +23,12 @@ public class ProductsService
     public ProductDto? GetProductById(int id)
     {
         var product = dbContext.Products.FirstOrDefault(p => p.Id == id);
+
+        if (product == null)
+        {
+            return null;
+        }
+
         var productDto = new ProductDto();
 
         return MapToDto(product);
@@ -30,7 +36,6 @@ public class ProductsService
     public List<ProductDto> GetProducts(string? category = null, int? minPrice = null, int? maxPrice = null)
     {
         var products = dbContext.Products.AsQueryable();
-        var productDto = new ProductDto();
         var productsDto = new List<ProductDto>();
 
         if (!string.IsNullOrEmpty(category))
@@ -57,7 +62,6 @@ public class ProductsService
     public ProductDto CreateProduct(CreateProductDto createProductDto)
     {
         var product = new Product();
-        var productDto = new ProductDto();
 
         product.Name = createProductDto.Name;
         product.Category = createProductDto.Category;
@@ -75,6 +79,11 @@ public class ProductsService
     {
         var product = dbContext.Products.FirstOrDefault(p => p.Id == id);
 
+        if (product == null)
+        {
+            return null;
+        }
+
         product.Name = updateProductDto.Name;
         product.Category = updateProductDto.Category;
         product.Price = updateProductDto.Price;
@@ -88,8 +97,13 @@ public class ProductsService
     public ProductDto DeleteProduct(int id)
     {
         var product = dbContext.Products.FirstOrDefault(p => p.Id == id);
-        var productDto = MapToDto(product);
 
+        if (product == null)
+        {
+            return null;
+        }
+
+        var productDto = MapToDto(product);
         dbContext.Remove(product);
         dbContext.SaveChanges();
 

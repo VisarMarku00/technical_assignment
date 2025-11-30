@@ -23,7 +23,7 @@ public class ProductsController : ControllerBase
         var product = productsService.GetProductById(id);
         if (product == null)
         {
-            return NotFound();
+            return NotFound(new { message = "Product not found" });
         }
         return Ok(product);
     }
@@ -45,7 +45,7 @@ public class ProductsController : ControllerBase
         var updatedProduct = productsService.UpdateProduct(id, product);
         if (updatedProduct == null)
         {
-            return NotFound();
+            return NotFound(new { message = "Product not found" });
         }
         return Ok(updatedProduct);
     }
@@ -55,7 +55,7 @@ public class ProductsController : ControllerBase
         var product = productsService.DeleteProduct(id);
         if (product == null)
         {
-            return NotFound();
+            return NotFound(new { message = "Product not found" });
         }
         return Ok(product);
     }

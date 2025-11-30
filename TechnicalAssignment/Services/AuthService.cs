@@ -48,7 +48,7 @@ public class AuthService
             new Claim(JwtRegisteredClaimNames.Sub, username),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
-        var jwt = configuration.GetSection("Jwt");
+        var jwt = configuration.GetSection("Jwt") ?? throw new InvalidOperationException("JWT config missing");
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

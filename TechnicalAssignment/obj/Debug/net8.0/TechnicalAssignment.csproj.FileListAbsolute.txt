@@ -45,3 +45,9 @@
 /home/visar/repos/technical_assignment/TechnicalAssignment/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
 /home/visar/repos/technical_assignment/TechnicalAssignment/bin/Debug/net8.0/Data/products.json
 /home/visar/repos/technical_assignment/TechnicalAssignment/bin/Debug/net8.0/Data/users.json
+/home/visar/repos/technical_assignment/TechnicalAssignment/bin/Debug/net8.0/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+/home/visar/repos/technical_assignment/TechnicalAssignment/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll
+/home/visar/repos/technical_assignment/TechnicalAssignment/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/home/visar/repos/technical_assignment/TechnicalAssignment/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/home/visar/repos/technical_assignment/TechnicalAssignment/bin/Debug/net8.0/Newtonsoft.Json.dll
+/home/visar/repos/technical_assignment/TechnicalAssignment/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll
