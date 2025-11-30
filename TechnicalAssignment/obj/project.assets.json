@@ -1692,7 +1692,7 @@
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 8.0.8",
       "Microsoft.AspNetCore.OpenApi >= 8.0.21",
       "Microsoft.EntityFrameworkCore.InMemory >= 8.0.8",
-      "Swashbuckle.AspNetCore >= 8.0.8"
+      "Swashbuckle.AspNetCore >= 8.1.0"
     ]
   },
   "packageFolders": {
@@ -1754,7 +1754,7 @@
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
-            "version": "[8.0.8, )"
+            "version": "[8.1.0, )"
           }
         },
         "imports": [
@@ -1779,17 +1779,5 @@
         "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.121/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TechnicalAssignment depends on Swashbuckle.AspNetCore (>= 8.0.8) but Swashbuckle.AspNetCore 8.0.8 was not found. An approximate best match of Swashbuckle.AspNetCore 8.1.0 was resolved.",
-      "libraryId": "Swashbuckle.AspNetCore",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

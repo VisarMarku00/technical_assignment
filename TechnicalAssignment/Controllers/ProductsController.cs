@@ -28,9 +28,16 @@ public class ProductsController : ControllerBase
         return Ok(product);
     }
     [HttpGet]
-    public ActionResult<List<ProductDto>> GetProducts(string? category = null, int? minPrice = null, int? maxPrice = null)
+    public ActionResult<List<ProductDto>> GetProducts(
+        string? category = null,
+        int? minPrice = null,
+        int? maxPrice = null,
+        string? sortBy = null,
+        string? sortOrder = "asc",
+        int pageNumber = 1,
+        int pageSize = 10)
     {
-        var products = productsService.GetProducts(category, minPrice, maxPrice);
+        var products = productsService.GetProducts(category, minPrice, maxPrice, sortBy, sortOrder, pageNumber, pageSize);
         return Ok(products);
     }
     [HttpPost]

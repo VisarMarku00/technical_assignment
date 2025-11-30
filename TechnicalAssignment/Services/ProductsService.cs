@@ -33,7 +33,13 @@ public class ProductsService
 
         return MapToDto(product);
     }
-    public List<ProductDto> GetProducts(string? category = null, int? minPrice = null, int? maxPrice = null)
+    public List<ProductDto> GetProducts(string? category = null,
+        int? minPrice = null,
+        int? maxPrice = null,
+        string? sortBy = null,
+        string? sortOrder = "asc",
+        int pageNumber = 1,
+        int pageSize = 10)
     {
         var products = dbContext.Products.AsQueryable();
         var productsDto = new List<ProductDto>();
@@ -50,6 +56,32 @@ public class ProductsService
         {
             products = products.Where(p => p.Price <= maxPrice.Value);
         }
+
+        if (!string.IsNullOrEmpty(sortBy))
+        {
+            switch (sortBy.ToLower())
+            {
+                case "name":
+                    products = sortOrder.ToLower() == "desc" ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name);
+                    break;
+                case "price":
+                    products = sortOrder.ToLower() == "desc" ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                    break;
+                case "createdat":
+                    products = sortOrder.ToLower() == "desc" ? products.OrderByDescending(p => p.CreatedAt) : products.OrderBy(p => p.CreatedAt);
+                    break;
+                default:
+                    products = products.OrderBy(p => p.Id);
+                    break;
+            }
+        }
+        else
+        {
+            products = products.OrderBy(p => p.Id);
+        }
+
+        var skip = (pageNumber - 1) * pageSize;
+        products = products.Skip(skip).Take(pageSize);
 
         foreach (Product product in products)
         {
