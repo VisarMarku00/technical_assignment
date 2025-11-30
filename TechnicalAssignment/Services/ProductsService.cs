@@ -59,16 +59,17 @@ public class ProductsService
 
         if (!string.IsNullOrEmpty(sortBy))
         {
+            var order = sortOrder?.ToLower() ?? "asc";
             switch (sortBy.ToLower())
             {
                 case "name":
-                    products = sortOrder.ToLower() == "desc" ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name);
+                    products = order == "desc" ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name);
                     break;
                 case "price":
-                    products = sortOrder.ToLower() == "desc" ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
+                    products = order == "desc" ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price);
                     break;
                 case "createdat":
-                    products = sortOrder.ToLower() == "desc" ? products.OrderByDescending(p => p.CreatedAt) : products.OrderBy(p => p.CreatedAt);
+                    products = order == "desc" ? products.OrderByDescending(p => p.CreatedAt) : products.OrderBy(p => p.CreatedAt);
                     break;
                 default:
                     products = products.OrderBy(p => p.Id);
@@ -83,7 +84,7 @@ public class ProductsService
         var skip = (pageNumber - 1) * pageSize;
         products = products.Skip(skip).Take(pageSize);
 
-        foreach (Product product in products)
+        foreach (Product product in products!)
         {
             productsDto.Add(MapToDto(product));
         }
@@ -107,7 +108,7 @@ public class ProductsService
         return MapToDto(product);
     }
 
-    public ProductDto UpdateProduct(int id, UpdateProductDto updateProductDto)
+    public ProductDto? UpdateProduct(int id, UpdateProductDto updateProductDto)
     {
         var product = dbContext.Products.FirstOrDefault(p => p.Id == id);
 
@@ -126,7 +127,7 @@ public class ProductsService
         return MapToDto(product);
     }
 
-    public ProductDto DeleteProduct(int id)
+    public ProductDto? DeleteProduct(int id)
     {
         var product = dbContext.Products.FirstOrDefault(p => p.Id == id);
 

@@ -8,7 +8,15 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var jwt = builder.Configuration.GetSection("Jwt") ?? throw new InvalidOperationException("JWT config missing");
+var jwtSection = builder.Configuration.GetSection("Jwt")
+    ?? throw new InvalidOperationException("JWT configuration section missing.");
+
+var keyValue = jwtSection["Key"]
+    ?? throw new InvalidOperationException("JWT Key is missing.");
+var issuer = jwtSection["Issuer"]
+    ?? throw new InvalidOperationException("JWT Issuer is missing.");
+var audience = jwtSection["Audience"]
+    ?? throw new InvalidOperationException("JWT Audience is missing.");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -19,9 +27,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwt["Issuer"],
-            ValidAudience = jwt["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]))
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyValue))
         };
     });
 
