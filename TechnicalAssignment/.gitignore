@@ -1,0 +1,37 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+
+# ASP.NET
+appsettings.Development.json
+appsettings.Local.json
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+*.psmdcp
+
+# Others
+*.swp
+*.lock.json
+project.lock.json
+*.DotSettings.user
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Publish output
+publish/
+
+bin
