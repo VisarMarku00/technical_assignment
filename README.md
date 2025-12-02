@@ -18,13 +18,17 @@ I have also impelmented paging, filtering and sorting.
 * Start the API
   * dotnet run
 
-* The API will be available at:
+* The API will be available at
   * <http://localhost:5002>
   * <https://localhost:7084>
 
-* Swagger UI:
+* Swagger UI
   * <https://localhost:5002/swagger>
   * <https://localhost:7084/swagger>
+
+* User for requests
+  * Username: admin
+  * Password: password
 
 #### DB Information
 
